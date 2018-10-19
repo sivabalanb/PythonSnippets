@@ -1,2 +1,3 @@
 # PythonSnippets
-Random python scripts
++ Random python scripts
++ Using Serial port
