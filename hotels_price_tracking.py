@@ -8,7 +8,17 @@ urls = ["https://www.google.com/travel/hotels/Pa%20Tong/place/151241677360242781
 '''
 import requests
 from bs4 import BeautifulSoup
+import time
 import csv
+
+try:
+	with open('price_tracker.csv') as csv_file:
+		reader = csv.reader(csv_file)
+		old_prices = dict(reader)
+		print(old_prices)
+
+except Exception as e:
+	print("Failed to read the csv",e)
 
 for url in urls:
 	headers = requests.utils.default_headers()
@@ -33,18 +43,18 @@ for url in urls:
 	#print("Minimum price:\t",min(price))
 	#print("Maximum price:\t",max(price))
 	my_hotel_dict = {}
-
-	my_hotel_dict[hotel_name] = min(price)
 	try:
-		with open('price_tracker.csv') as csv_file:
-			reader = csv.reader(csv_file)
-			mydict = dict(reader)
-			print(mydict)
-
+		if old_prices[hotel_name] > min(price):
+			price_change = old_prices[hotel_name] - min(price)
+			my_hotel_dict[hotel_name] = [min(price), price_change]
 	except Exception as e:
-		print("Failed to read the csv",e)
+		print("Exception while calculating price_change:\t",e)
+		price_change = old_prices[hotel_name] - min(price)
+		my_hotel_dict[hotel_name] = [min(price), price_change]
 
 	with open('price_tracker.csv', 'a') as csv_file:
 		writer = csv.writer(csv_file)
 		for key, value in my_hotel_dict.items():
 		   writer.writerow([key, value])
+
+	time.sleep(60)
