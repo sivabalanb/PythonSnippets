@@ -11,7 +11,7 @@ import time
 import csv
 
 try:
-	with open('price_tracker.csv') as csv_file:
+	with open('price_tracker.csv','rb') as csv_file:
 		reader = csv.reader(csv_file)
 		old_prices = dict(reader)
 		print(old_prices)
@@ -36,7 +36,9 @@ for url in urls:
 	price = []
 	for tag in tags:
 		price_t = tag.text.encode("utf-8")[5:]
-		price_t = price_t.replace(",", "")
+		price_decoded = str(price_t, 'utf-8')
+		
+		price_t = price_decoded.replace(",", "")
 		try:
 			price_t = int(price_t)
 		except Exception as e:
@@ -49,7 +51,7 @@ for url in urls:
 	print("Minimum price:\t",min(price))
 	print("Maximum price:\t",max(price))
 	my_hotel_dict = {}
-	print("old_prices[hotel_name]",old_prices[hotel_name])
+	#print("old_prices[hotel_name]",old_prices[hotel_name])
 	try:
 		if old_prices[hotel_name] > min(price):
 			price_change = old_prices[hotel_name] - min(price)
@@ -70,4 +72,4 @@ for url in urls:
 			#value_t = [x.strip() for x in value.split(',')]
 			writer.writerow([key, value[0], value[1]])
 
-	time.sleep(60)
+	time.sleep(10)
