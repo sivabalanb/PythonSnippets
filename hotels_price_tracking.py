@@ -97,8 +97,10 @@ if __name__ == '__main__':
 
 	my_hotel_dict = {}
 
-	for url in urls:
-		my_hotel_dict = find_the_prices(url)
-		time.sleep(180)
-	print("my_hotel_dict before writing it to csv:\t",my_hotel_dict)
-	write_to_csv(my_hotel_dict)
+	while True:
+		for url in urls:
+			my_hotel_dict = find_the_prices(url)
+			time.sleep(180)
+		print("my_hotel_dict before writing it to csv:\t",my_hotel_dict)
+		write_to_csv(my_hotel_dict)
+		time.sleep(14400)
