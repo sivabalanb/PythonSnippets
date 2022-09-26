@@ -13,8 +13,8 @@ import sendgrid
 def sendgrid_mail(url, price):
 	sg = sendgrid.SendGridClient('removedthekey')
 	message = sendgrid.Mail()
-	message.add_to("sivabalanb.92@gmail.com")
-	message.set_from("sivabalanb.92@gmail.com")
+	message.add_to("youremail@gmail.com")
+	message.set_from("youremail2@gmail.com")
 	subject = "Flight price is now\t" + str(price)
 	print("Subject in sendgrid_mail:\t",subject)
 	message.set_subject(subject)
@@ -47,7 +47,7 @@ def find_prices(url):
 	return price_list
 
 def write_to_csv(my_flight_prices, filename):
-	#os.chdir('/home/sivabalanb_92/csv_files')
+	#os.chdir('/home/user/csv_files')
 	file_exists = os.path.isfile(filename)
 	try:
 		with open(filename, 'a') as f:
