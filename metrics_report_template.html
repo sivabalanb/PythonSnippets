@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Metrics Report</title>
+</head>
+<body>
+    <h1>Metrics Report</h1>
+    <table border="1">
+        <tr>
+            <th>Timestamp</th>
+            <th>Metric Type</th>
+            <th>Data</th>
+        </tr>
+        {% for metric in metrics_data %}
+        <tr>
+            <td>{{ metric.timestamp }}</td>
+            <td>{{ metric.type }}</td>
+            <td>{{ metric.data }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
